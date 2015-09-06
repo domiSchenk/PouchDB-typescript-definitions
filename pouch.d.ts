@@ -88,10 +88,10 @@ declare module pouchDB {
         removeAttachment(docId: string, attachmentId: string, rev: string): ng.IPromise<Response.IOk>;
         removeAttachment(docId: string, attachmentId: string, rev: string, callback: (err: IError, res: Response.IOk) => void): any;
 
-        query(fun: (doc: any) => void | string): ng.IPromise<any>;
-        query(fun: (doc: any) => void | string, callback: (err: IError, res: any) => void): any;
-        query(fun: (doc: any) => void | string, options: Options.IQuery): ng.IPromise<any>;
-        query(fun: (doc: any) => void | string, options: Options.IQuery, callback: (err: IError, res: any) => void): any;
+        query(fun: ((doc: any) => void) | string): ng.IPromise<any>;
+        query(fun: ((doc: any) => void) | string, callback: (err: IError, res: any) => void): any;
+        query(fun: ((doc: any) => void) | string, options: Options.IQuery): ng.IPromise<any>;
+        query(fun: ((doc: any) => void) | string, options: Options.IQuery, callback: (err: IError, res: any) => void): any;
         
         viewCleanup(): ng.IPromise<Response.IViewCleanup>
         viewCleanup(callback: (err: IError, res: Response.IViewCleanup) => void): void
@@ -196,7 +196,7 @@ declare module pouchDB {
 
         interface IQuery {
             /** Reduce function, or the string name of a built-in function: '_sum', '_count', or '_stats'. Defaults to false (no reduce). */
-            reduce?: (...args: any[]) => void | string;
+            reduce?: ((...args: any[]) => void) | string;
             /** Include the document in each row in the doc field. */
             include_docs?: boolean;
             /** Include conflicts in the _conflicts field of a doc. */
