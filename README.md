@@ -1,6 +1,6 @@
 # PouchDB-typescript-definitions
 
-New Typings for PouchDB 3.6.0
+New Typings for PouchDB 5.3.1
 
 ## HOW TO USE:
 
