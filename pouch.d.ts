@@ -1,4 +1,6 @@
-﻿/**
+/// <reference path="angularjs.d.ts" />
+
+/**
  * Define a global PouchDB object
  */
 
@@ -18,48 +20,49 @@ declare module pouchDB {
         new (name: string): IPouchDB;
         new (name: string, options: Options.IBase): IPouchDB;
 
+        /** Delete the database. Note that this has no impact on other replicated databases.*/
         destroy(): ng.IPromise<any>;
         destroy(callback: (err: IError, any) => void): any;
         destroy(options: any): ng.IPromise<any>;
         destroy(options: any, callback: (err: IError, any) => void): any;
 
-        put<T>(doc: T): ng.IPromise<Response.IOk>;
-        put<T>(doc: T, callback: (err: IError, res: Response.IOk) => void): any;
-        put<T>(doc: T, docId: string): ng.IPromise<Response.IOk>;
-        put<T>(doc: T, docId: string, callback: (err: IError, res: Response.IOk) => void): any;
-        put<T>(doc: T, docId: string, docRev: string): ng.IPromise<Response.IOk>;
-        put<T>(doc: T, docId: string, docRev: string, callback: (err: IError, res: Response.IOk) => void): any;
-        put<T>(doc: T, docId: string, docRev: string, options: any): ng.IPromise<Response.IOk>;
-        put<T>(doc: T, docId: string, docRev: string, options: any, callback: (err: IError, res: Response.IOk) => void): any;
-        
-        post<T>(doc: T): ng.IPromise<Response.IOk>;
-        post<T>(doc: T, callback: (err: IError, res: Response.IOk) => void): any;
-        post<T>(doc: T, options: any): ng.IPromise<Response.IOk>;
-        post<T>(doc: T, options: any, callback: (err: IError, res: Response.IOk) => void): any;
+        put<T extends IBaseDoc>(doc: T): ng.IPromise<Response.IOk>;
+        put<T extends IBaseDoc>(doc: T, callback: (err: IError, res: Response.IOk) => void): any;
+        put<T extends IBaseDoc>(doc: T, docId: string): ng.IPromise<Response.IOk>;
+        put<T extends IBaseDoc>(doc: T, docId: string, callback: (err: IError, res: Response.IOk) => void): any;
+        put<T extends IBaseDoc>(doc: T, docId: string, docRev: string): ng.IPromise<Response.IOk>;
+        put<T extends IBaseDoc>(doc: T, docId: string, docRev: string, callback: (err: IError, res: Response.IOk) => void): any;
+        put<T extends IBaseDoc>(doc: T, docId: string, docRev: string, options: any): ng.IPromise<Response.IOk>;
+        put<T extends IBaseDoc>(doc: T, docId: string, docRev: string, options: any, callback: (err: IError, res: Response.IOk) => void): any;
+
+        post<T extends IBasePostDoc>(doc: T): ng.IPromise<Response.IOk>;
+        post<T extends IBasePostDoc>(doc: T, callback: (err: IError, res: Response.IOk) => void): any;
+        post<T extends IBasePostDoc>(doc: T, options: any): ng.IPromise<Response.IOk>;
+        post<T extends IBasePostDoc>(doc: T, options: any, callback: (err: IError, res: Response.IOk) => void): any;
 
         get<T>(docId: string): ng.IPromise<T>;
         get<T>(docId: string, callback: (err: IError, res: T) => void): any;
         get<T>(docId: string, options: Options.IFetch): ng.IPromise<T>;
         get<T>(docId: string, options: Options.IFetch, callback: (err: IError, res: T) => void): any;
 
-        remove<T>(doc: T): ng.IPromise<Response.IOk>;
-        remove<T>(doc: T, callback: (err: IError, res: Response.IOk) => void): any;
-        remove<T>(doc: T, options: any): ng.IPromise<Response.IOk>;
-        remove<T>(doc: T, options: any, callback: (err: IError, res: Response.IOk) => void): any;
+        remove<T extends IBaseDoc>(doc: T): ng.IPromise<Response.IOk>;
+        remove<T extends IBaseDoc>(doc: T, callback: (err: IError, res: Response.IOk) => void): any;
+        remove<T extends IBaseDoc>(doc: T, options: any): ng.IPromise<Response.IOk>;
+        remove<T extends IBaseDoc>(doc: T, options: any, callback: (err: IError, res: Response.IOk) => void): any;
         remove(docId: string, docRev: string): ng.IPromise<Response.IOk>;
         remove(docId: string, docRev: string, callback: (err: IError, res: Response.IOk) => void): any;
         remove(docId: string, docRev: string, options: any): ng.IPromise<Response.IOk>;
         remove(docId: string, docRev: string, options: any, callback: (err: IError, res: Response.IOk) => void): any;
-        
+
         bulkDocs<T>(docs: T[]): ng.IPromise<Response.IOk[]>;
         bulkDocs<T>(docs: T[], options: Options.IBulkDoc): ng.IPromise<Response.IOk[]>;
         bulkDocs<T>(docs: T[], callback: (err: IError, res: Response.IOk[]) => void): any;
         bulkDocs<T>(docs: T[], options: Options.IBulkDoc, callback: (err: IError, res: Response.IOk[]) => void): any;
 
-        allDocs<T>(): ng.IPromise<Response.IBatchFetch<T>>;
-        allDocs<T>(options: Options.IBatchFetch): ng.IPromise<Response.IBatchFetch<T>>;
+        allDocs<T extends IBaseDoc>(): ng.IPromise<Response.IBatchFetch<T>>;
+        allDocs<T extends IBaseDoc>(options: Options.IBatchFetch): ng.IPromise<Response.IBatchFetch<T>>;
 
-       // allDocs<T>(options: Options.IBatchFetch): ng.IPromise<Response.IBatchFetch<T>, IError>;
+        // allDocs<T>(options: Options.IBatchFetch): ng.IPromise<Response.IBatchFetch<T>, IError>;
         //allDocs<T>(options: Options.IBatchFetch): ng.IPromise<any>;
         allDocs<T>(callback: (err: IError, res: Response.IBatchFetch<T>) => void): any;
         allDocs<T>(options: Options.IBatchFetch, callback: (err: IError, res: Response.IBatchFetch<T>) => void): any;
@@ -69,17 +72,17 @@ declare module pouchDB {
         cancel(): IPouchDB;
 
         replicate: IPouchDBReplicate;
-        
+
         sync(src: string, target: string): IPouchDBOn;
         sync(src: string, target: string, options: Options.ISync): IPouchDBOn;
         sync(remoteDB: string): IPouchDBOn;
         sync(remoteDB: string, options: Options.ISync): IPouchDBOn;
-        
+
         putAttachment(docId: string, attachmentId: string, attachment: Object, type: string): ng.IPromise<Response.IOk>;
         putAttachment(docId: string, attachmentId: string, attachment: Object, type: string, callback: (err: IError, res: Response.IOk) => void): any;
         putAttachment(docId: string, attachmentId: string, rev: string, attachment: Object, type: string): ng.IPromise<Response.IOk>;
         putAttachment(docId: string, attachmentId: string, rev: string, attachment: Object, type: string, callback: (err: IError, res: Response.IOk) => void): any;
-        
+
         getAttachment(docId: string, attachmentId: string): ng.IPromise<Response.IGetAttachement>;
         getAttachment(docId: string, attachmentId: string, options: Options.IGetAttachement): ng.IPromise<Response.IGetAttachement>;
         getAttachment(docId: string, attachmentId: string, callback: (err: IError, res: Response.IGetAttachement) => void): any;
@@ -92,22 +95,28 @@ declare module pouchDB {
         query(fun: ((doc: any) => void) | string, callback: (err: IError, res: any) => void): any;
         query(fun: ((doc: any) => void) | string, options: Options.IQuery): ng.IPromise<any>;
         query(fun: ((doc: any) => void) | string, options: Options.IQuery, callback: (err: IError, res: any) => void): any;
-        
+
         viewCleanup(): ng.IPromise<Response.IViewCleanup>
         viewCleanup(callback: (err: IError, res: Response.IViewCleanup) => void): void
 
         info(): ng.IPromise<Response.IInfo>;
         info(callback: (err: IError, res: Response.IInfo) => void): void;
 
-        compact(): ng.IPromise<Response.IOk>;
-        compact(options: Options.ICompact): ng.IPromise<Response.IOk>;
-        compact(options: Options.ICompact, callback: (err: IError, res: Response.IOk) => void): void;
-        compact(callback: (err: IError, res: Response.IOk) => void): void;
+        compact(): ng.IPromise<Response.ICompact>;
+        compact(options: Options.ICompact): ng.IPromise<Response.ICompact>;
+        compact(options: Options.ICompact, callback: (err: IError, res: Response.ICompact) => void): void;
+        compact(callback: (err: IError, res: Response.ICompact) => void): void;
 
         revsDiff(diff: Object): ng.IPromise<any>;
         revsDiff(diff: Object, callback: (err: IError, res: any) => void): void;
 
-        on(event: string, callback: (Object: any) => void): IPouchDB;
+        bulkGet(options: Options.IBulkGet): ng.IPromise<any>;
+        bulkGet(options: Options.IBulkGet, callback: (err: IError, res: any) => void): any;
+
+        on(
+            /** Possible Events: "changed", "paused", "active", "denied", "complete", "error", "destroyed" */
+            event: string,
+            callback: (Object: any) => void): IPouchDB;
 
         defaults(): IPouchDB;
         defaults(options: Object): IPouchDB;
@@ -118,7 +127,11 @@ declare module pouchDB {
     }
 
     interface IPouchDBOn {
-        on(event: string, callback: (Object: any) => void): IPouchDBOn
+        on(
+            /** Possible Events: "changed", "paused", "active", "denied", "complete", "error" */
+            event: string,
+            callback: (Object: IError) => void): IPouchDBOn;
+
         cancel(): void;
     }
     interface IPouchDBDebug {
@@ -133,14 +146,25 @@ declare module pouchDB {
         (source: string | IPouchDB, target: string | IPouchDB): IPouchDB;
         (source: string | IPouchDB, target: string | IPouchDB, options: Options.ISync): IPouchDB;
     }
-    
+
     export module Options { }
     module Options {
-        interface IBulkDoc{
+        interface IBulkDoc {
             /** You can also specify a new_edits property on the options object 
-        that when set to false allows you to post and overwrite existing documents. 
-        Normally only the replication algorithm needs to do this.*/
+            that when set to false allows you to post and overwrite existing documents. 
+            Normally only the replication algorithm needs to do this.*/
             new_edits: boolean;
+        }
+
+        interface IBulkGet {
+            /**An array of id and rev pairs representing the revisions to fetch. */
+            docs: IBulkGetDoc[];
+            /**Each returned revision body will include its revision history as a _revisions property. Default is false. */
+            revs?: boolean;
+            /**Include attachment data in the response. Default is false, resulting in only stubs being returned. */
+            attachments?: boolean;
+            /**Return attachment data as Blobs/Buffers, instead of as base64-encoded strings. Default is false. */
+            binary?: boolean;
         }
 
         interface IFetch {
@@ -162,16 +186,22 @@ declare module pouchDB {
         }
 
         interface IBatchFetch {
-            /** Include the document in each row in the doc field. */
+            /** Include the document in each row in the doc field.
+            Otherwise by default you only get the _id and _rev properties.
+             */
             include_docs?: boolean;
             /** Include conflicts in the _conflicts field of a doc. */
             conflicts?: boolean;
-            /** Include attachment data. */
+            /** Include attachment data as base64-encoded string. */
             attachments?: boolean;
+            /** Return attachment data as Blobs/Buffers, instead of as base64-encoded strings.*/
+            binary?: boolean;
             /** Get rows with keys in a certain range (inclusive/inclusive).*/
             startkey?: string;
             /** Get rows with keys in a certain range (inclusive/inclusive).*/
             endkey?: string;
+            /**  Include documents having an ID equal to the given options.endkey. 
+            Default: true */
             inclusive_end?: any;
             /** Maximum number of rows to return. */
             limit?: number;
@@ -179,7 +209,7 @@ declare module pouchDB {
             skip?: number;
             /** Reverse the order of the output rows. */
             descending?: string;
-            /** Only return rows matching this key.*/
+            /** Only return documents with IDs matching this string key.*/
             key?: string;
             /** Array of keys to fetch in a single shot.
             * - Neither startkey nor endkey can be specified with this option.
@@ -203,6 +233,8 @@ declare module pouchDB {
             conflicts?: boolean;
             /** Include attachment data. */
             attachments?: boolean;
+            /** Return attachment data as Blobs/Buffers, instead of as base64-encoded strings. */
+            binary?: boolean
             /** Get rows with keys in a certain range (inclusive/inclusive).*/
             startkey?: string;
             /** Get rows with keys in a certain range (inclusive/inclusive).*/
@@ -224,7 +256,8 @@ declare module pouchDB {
             * - The row for a nonexistent document will just contain an "error" property with the value "not_found".
             */
             keys?: string[];
-            /** rue if you want the reduce function to group results by keys, rather than returning a single result. Defaults to false.*/
+            /** rue if you want the reduce function to group results by keys, rather than returning a single result. 
+             Defaults to false.*/
             group?: boolean;
             /** Number of elements in a key to group by, assuming the keys are arrays. Defaults to the full length of the array.*/
             group_level?: number;
@@ -238,6 +271,7 @@ declare module pouchDB {
         }
 
         interface ICompact {
+            /** Number of milliseconds to wait before asking again if compaction is already done. Defaults to 200. (Only applies to remote databases.) */
             interval: number;
         }
 
@@ -245,26 +279,45 @@ declare module pouchDB {
             /** This turns on auto compaction, which means compact() is called after every change to the database. 
             Defaults to false.*/
             auto_compaction?: boolean;
-            /** One of 'idb', 'leveldb', 'websql', or 'http'. If unspecified, 
-            PouchDB will infer this automatically, preferring IndexedDB to WebSQL in browsers
+            /** One of 'idb', 'leveldb', 'websql', or 'http'. 
+            If unspecified, PouchDB will infer this automatically, 
+            preferring IndexedDB to WebSQL in browsers
             that support both (i.e. Chrome, Opera and Android 4.4+).*/
             adapter?: string;
+            /**
+            Specify how many old revisions we keep track (not a copy) of.
+            */
+            revs_limit?: number;
             /** When using the 'leveldb' adapter (the default on Node), any other options given 
             will be passed to levelup. The storage layer of leveldb can be replaced 
             by passing a level backend factory (such as MemDOWN) as options.db. */
             db?: any;
-            /** (Remote databases only) Ajax requester options. For instance, passing in the options*/
+            /** (Remote databases only) Initially PouchDB checks if the database exists, 
+             and tries to create it, if it does not exist yet. 
+             Set this to true to skip this setup.*/
+            skip_setup?: boolean;
+            /** (Remote databases only) Ajax requester options. For instance, passing in the options
+            {ajax: {timeout: 10000}} will allow you to set the max timeout for an HTTP request.
+            These are passed ver batim to request (in Node.js) or a request shim (in the browser).
+            */
             ajax?: IAjax;
-            /** You can specify HTTP auth parameters either by using a database 
+            /** (Remote databases only) You can specify HTTP auth parameters either by using a database 
             with a name in the form http://user:pass@host/name or via the auth.username + auth.password options.*/
             auth?: IAuth;
-            /** WebSQL-only: Amount in MB to request for storage, which you will need 
-            if you are storing >5MB in order to avoid storage limit errors on iOS/Safari.*/
+            /** (IndexedDB-only) Specifies whether you want to use 'persistent' or 'temporary' storage. 
+            This non-standard feature has been supported in Firefox since version 26. 
+            Find out more about the available storage types, and how Firefox handles client-side data storage, 
+            at https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API/Browser_storage_limits_and_eviction_criteria */
+            storage?: string
+            /** (WebSQL-only) Amount in MB to request for storage, which you will need 
+            if you are storing >5MB in order to avoid storage limit errors on iOS/Safari.
+            https://pouchdb.com/errors.html#not_enough_space */
             size?: number;
             /** SQLite Plugin: Where to store data on iOS, which may affect iTunes/iCloud backup,
             and thus whether or not your app gets rejected by Apple*/
             location?: string;
-            /** SQLite Plugin: Use a pre-populated database, so you can package it with your app and users don’t have to wait for it to load*/
+            /** SQLite Plugin: Use a pre-populated database, 
+            so you can package it with your app and users don’t have to wait for it to load*/
             createFromLocation?: string;
             /** SQLite Plugin:  
             - 1 to use the new sqlite4java implementation
@@ -279,9 +332,22 @@ declare module pouchDB {
         }
 
         interface IAjax {
+            /**
+            Appends a random string to the end of all HTTP GET requests to avoid them being cached on IE. 
+            Set this to true to prevent this happening.
+            */
             cache: boolean;
+            /** will allow you to set the max timeout for an HTTP request */
             timeout: number;
+            /**
+            The ajax.headers option allows you to customise headers that are sent to the remote HTTP Server.
+             */
             headers: any;
+            /**
+            Set to false to disable transferring cookies or HTTP Auth information. 
+            Defaults to true
+             */
+            withCredentials: boolean;
         }
 
         interface ISync {
@@ -332,7 +398,7 @@ declare module pouchDB {
         }
 
         interface IChanges {
-            /** Does “live” changes, using CouchDB’s _longpoll_ feed if remote.*/
+            /** Does "live"" changes, using CouchDB’s _longpoll_ feed if remote.*/
             live?: boolean;
             /** Include the document in each row in the doc field. */
             include_docs?: boolean;
@@ -340,20 +406,24 @@ declare module pouchDB {
             conflicts?: boolean;
             /** Include attachment data. */
             attachments?: boolean;
+            /** Return attachment data as Blobs/Buffers, instead of as base64-encoded strings. */
+            binary?: boolean;
             /** Reverse the order of the output rows. */
             descending?: string;
-            /** Replicate changes after the given sequence number.*/
+            /** Start the results from the change immediately after the given sequence number. 
+            You can also pass 'now' if you want only new changes (when live is true).*/
             since?: any;
             /** Maximum number of rows to return. */
             limit?: number;
             /** Request timeout (in milliseconds).*/
             timeout?: any;
-
+            /** For http adapter only, time in milliseconds for server to give a heartbeat to keep long connections open. 
+            Defaults to 10000 (10 seconds), use false to disable the default. */
+            heartbeat?: number | boolean;
             /** Reference a filter function from a design document to selectively get updates. 
-           To use a view function, pass _view here and provide a reference to the view function 
-           in options.view. See filtered replication for details.*/
+            To use a view function, pass _view here and provide a reference to the view function 
+            in options.view. See https://pouchdb.com/api.html#filtered-changes for details.*/
             filter?: any;
-        
             /** Only show changes for docs with these ids (array of strings).*/
             doc_ids?: string | string[];
             /** Object containing properties that are passed to the filter function, 
@@ -366,12 +436,13 @@ declare module pouchDB {
             Note: options.filter must be set to '_view' for this option to work.*/
             view?: any;
 
-            /**  Is available for non-http databases and defaults to true. 
+            /**  (previously options.returnDocs): 
+            Is available for non-http databases and defaults to true. 
             Passing false prevents the changes feed from keeping all the documents in memory – 
-            in other words complete always has an empty results array, and the change event 
-            is the only way to get the event.
+            in other words complete always has an empty results array, 
+            and the change event is the only way to get the event. 
             Useful for large change sets where otherwise you would run out of memory.*/
-            returnDocs?: boolean;
+            return_docs?: boolean;
             /** Only available for http databases, this configures how many changes to fetch at a time.
             Increasing this can reduce the number of requests made. Default is 25.*/
             batch_size?: number;
@@ -379,7 +450,7 @@ declare module pouchDB {
             The default, 'main_only', will only return the current “winning” revision; 
             'all_docs' will return all leaf revisions (including conflicts and deleted former conflicts).
             Most likely you won’t need this unless you’re writing a replicator.*/
-            style?: any;
+            style?: string;
         }
     }
 
@@ -407,12 +478,18 @@ declare module pouchDB {
             db_name: string;
             doc_count: number;
             update_seq: string;
+            adapter: string;
             idb_attachment_format: string;
             sqlite_plugin: boolean;
             websql_encoding: string;
+            backend_adapter: string;
         }
 
         interface IViewCleanup {
+            ok: string;
+        }
+
+        interface ICompact {
             ok: string;
         }
 
@@ -422,7 +499,6 @@ declare module pouchDB {
             rev: string;
         }
 
-        
     }
 
     interface IError {
@@ -431,13 +507,26 @@ declare module pouchDB {
         reason: string;
     }
 
-    interface IBaseDoc {
+    interface IBaseDoc extends IBasePostDoc {
         _id: string;
-        _rev: string;
     }
-      
+
+    interface IBasePostDoc {
+        _rev: string;
+        _deleted?: boolean;
+    }
+
+    interface IBulkGetDoc {
+        /**ID of the document to fetch. */
+        id: string;
+        /**Revision of the document to fetch. If this is not specified, all available revisions are fetched. */
+        rev: string;
+        /**Optional and supported by the http adapter only. Includes attachments only since specified revisions. Doesn’t includes attachments for specified revisions. */
+        atts_since?: any;
+    }
+
     interface IPouchDBBatchDocRev {
         rev: string;
     }
-    
+
 }
