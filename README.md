@@ -18,4 +18,19 @@ Access via:
 
 ##DEPENDENCIES:
 
-Promises definitions are based on angular.d.ts (https://github.com/borisyankov/DefinitelyTyped/blob/master/angularjs/angular.d.ts)
+Promises definitions are on standard ES6 Promises, as implemented by es6-shim
+
+
+## DEVELOPMENT INSTALLATION:
+
+### Install Typings Library
+
+As Super User (Linux/Unix/Mac) / Administrator (Windows):
+
+    npm install typings -g
+
+### Install required typings
+
+Inside the project:
+
+    typings install
