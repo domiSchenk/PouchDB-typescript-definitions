@@ -111,6 +111,8 @@ declare module pouchDB {
         bulkGet(options: Options.IBulkGet): Promise<any>;
         bulkGet(options: Options.IBulkGet, callback: (err: IError, res: any) => void): any;
 
+        find(options: Options.IFind): Promise<Response.IFind>;
+
         on(
             /** Possible Events: "changed", "paused", "active", "denied", "complete", "error", "destroyed" */
             event: string,
@@ -450,6 +452,12 @@ declare module pouchDB {
             Most likely you won’t need this unless you’re writing a replicator.*/
             style?: string;
         }
+
+        export interface IFind {
+            selector: any,
+            fields?: string[],
+            sort: string[]
+        }
     }
 
     module Response {
@@ -495,6 +503,10 @@ declare module pouchDB {
             ok: boolean;
             id: string;
             rev: string;
+        }
+
+        interface IFind {
+            'docs': any[];
         }
 
     }
