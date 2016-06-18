@@ -1,5 +1,3 @@
-/// <reference path="angularjs.d.ts" />
-
 /**
  * Define a global PouchDB object
  */
@@ -21,49 +19,49 @@ declare module pouchDB {
         new (name: string, options: Options.IBase): IPouchDB;
 
         /** Delete the database. Note that this has no impact on other replicated databases.*/
-        destroy(): ng.IPromise<any>;
+        destroy(): Promise<any>;
         destroy(callback: (err: IError, any) => void): any;
-        destroy(options: any): ng.IPromise<any>;
+        destroy(options: any): Promise<any>;
         destroy(options: any, callback: (err: IError, any) => void): any;
 
-        put<T extends IBaseDoc>(doc: T): ng.IPromise<Response.IOk>;
+        put<T extends IBaseDoc>(doc: T): Promise<Response.IOk>;
         put<T extends IBaseDoc>(doc: T, callback: (err: IError, res: Response.IOk) => void): any;
-        put<T extends IBaseDoc>(doc: T, docId: string): ng.IPromise<Response.IOk>;
+        put<T extends IBaseDoc>(doc: T, docId: string): Promise<Response.IOk>;
         put<T extends IBaseDoc>(doc: T, docId: string, callback: (err: IError, res: Response.IOk) => void): any;
-        put<T extends IBaseDoc>(doc: T, docId: string, docRev: string): ng.IPromise<Response.IOk>;
+        put<T extends IBaseDoc>(doc: T, docId: string, docRev: string): Promise<Response.IOk>;
         put<T extends IBaseDoc>(doc: T, docId: string, docRev: string, callback: (err: IError, res: Response.IOk) => void): any;
-        put<T extends IBaseDoc>(doc: T, docId: string, docRev: string, options: any): ng.IPromise<Response.IOk>;
+        put<T extends IBaseDoc>(doc: T, docId: string, docRev: string, options: any): Promise<Response.IOk>;
         put<T extends IBaseDoc>(doc: T, docId: string, docRev: string, options: any, callback: (err: IError, res: Response.IOk) => void): any;
 
-        post<T extends IBasePostDoc>(doc: T): ng.IPromise<Response.IOk>;
+        post<T extends IBasePostDoc>(doc: T): Promise<Response.IOk>;
         post<T extends IBasePostDoc>(doc: T, callback: (err: IError, res: Response.IOk) => void): any;
-        post<T extends IBasePostDoc>(doc: T, options: any): ng.IPromise<Response.IOk>;
+        post<T extends IBasePostDoc>(doc: T, options: any): Promise<Response.IOk>;
         post<T extends IBasePostDoc>(doc: T, options: any, callback: (err: IError, res: Response.IOk) => void): any;
 
-        get<T>(docId: string): ng.IPromise<T>;
+        get<T>(docId: string): Promise<T>;
         get<T>(docId: string, callback: (err: IError, res: T) => void): any;
-        get<T>(docId: string, options: Options.IFetch): ng.IPromise<T>;
+        get<T>(docId: string, options: Options.IFetch): Promise<T>;
         get<T>(docId: string, options: Options.IFetch, callback: (err: IError, res: T) => void): any;
 
-        remove<T extends IBaseDoc>(doc: T): ng.IPromise<Response.IOk>;
+        remove<T extends IBaseDoc>(doc: T): Promise<Response.IOk>;
         remove<T extends IBaseDoc>(doc: T, callback: (err: IError, res: Response.IOk) => void): any;
-        remove<T extends IBaseDoc>(doc: T, options: any): ng.IPromise<Response.IOk>;
+        remove<T extends IBaseDoc>(doc: T, options: any): Promise<Response.IOk>;
         remove<T extends IBaseDoc>(doc: T, options: any, callback: (err: IError, res: Response.IOk) => void): any;
-        remove(docId: string, docRev: string): ng.IPromise<Response.IOk>;
+        remove(docId: string, docRev: string): Promise<Response.IOk>;
         remove(docId: string, docRev: string, callback: (err: IError, res: Response.IOk) => void): any;
-        remove(docId: string, docRev: string, options: any): ng.IPromise<Response.IOk>;
+        remove(docId: string, docRev: string, options: any): Promise<Response.IOk>;
         remove(docId: string, docRev: string, options: any, callback: (err: IError, res: Response.IOk) => void): any;
 
-        bulkDocs<T>(docs: T[]): ng.IPromise<Response.IOk[]>;
-        bulkDocs<T>(docs: T[], options: Options.IBulkDoc): ng.IPromise<Response.IOk[]>;
+        bulkDocs<T>(docs: T[]): Promise<Response.IOk[]>;
+        bulkDocs<T>(docs: T[], options: Options.IBulkDoc): Promise<Response.IOk[]>;
         bulkDocs<T>(docs: T[], callback: (err: IError, res: Response.IOk[]) => void): any;
         bulkDocs<T>(docs: T[], options: Options.IBulkDoc, callback: (err: IError, res: Response.IOk[]) => void): any;
 
-        allDocs<T extends IBaseDoc>(): ng.IPromise<Response.IBatchFetch<T>>;
-        allDocs<T extends IBaseDoc>(options: Options.IBatchFetch): ng.IPromise<Response.IBatchFetch<T>>;
+        allDocs<T extends IBaseDoc>(): Promise<Response.IBatchFetch<T>>;
+        allDocs<T extends IBaseDoc>(options: Options.IBatchFetch): Promise<Response.IBatchFetch<T>>;
 
-        // allDocs<T>(options: Options.IBatchFetch): ng.IPromise<Response.IBatchFetch<T>, IError>;
-        //allDocs<T>(options: Options.IBatchFetch): ng.IPromise<any>;
+        // allDocs<T>(options: Options.IBatchFetch): Promise<Response.IBatchFetch<T>, IError>;
+        //allDocs<T>(options: Options.IBatchFetch): Promise<any>;
         allDocs<T>(callback: (err: IError, res: Response.IBatchFetch<T>) => void): any;
         allDocs<T>(options: Options.IBatchFetch, callback: (err: IError, res: Response.IBatchFetch<T>) => void): any;
 
@@ -78,40 +76,42 @@ declare module pouchDB {
         sync(remoteDB: string): IPouchDBOn;
         sync(remoteDB: string, options: Options.ISync): IPouchDBOn;
 
-        putAttachment(docId: string, attachmentId: string, attachment: Object, type: string): ng.IPromise<Response.IOk>;
+        putAttachment(docId: string, attachmentId: string, attachment: Object, type: string): Promise<Response.IOk>;
         putAttachment(docId: string, attachmentId: string, attachment: Object, type: string, callback: (err: IError, res: Response.IOk) => void): any;
-        putAttachment(docId: string, attachmentId: string, rev: string, attachment: Object, type: string): ng.IPromise<Response.IOk>;
+        putAttachment(docId: string, attachmentId: string, rev: string, attachment: Object, type: string): Promise<Response.IOk>;
         putAttachment(docId: string, attachmentId: string, rev: string, attachment: Object, type: string, callback: (err: IError, res: Response.IOk) => void): any;
 
-        getAttachment(docId: string, attachmentId: string): ng.IPromise<Response.IGetAttachement>;
-        getAttachment(docId: string, attachmentId: string, options: Options.IGetAttachement): ng.IPromise<Response.IGetAttachement>;
+        getAttachment(docId: string, attachmentId: string): Promise<Response.IGetAttachement>;
+        getAttachment(docId: string, attachmentId: string, options: Options.IGetAttachement): Promise<Response.IGetAttachement>;
         getAttachment(docId: string, attachmentId: string, callback: (err: IError, res: Response.IGetAttachement) => void): any;
         getAttachment(docId: string, attachmentId: string, options: Options.IGetAttachement, callback: (err: IError, res: Response.IGetAttachement) => void): any;
 
-        removeAttachment(docId: string, attachmentId: string, rev: string): ng.IPromise<Response.IOk>;
+        removeAttachment(docId: string, attachmentId: string, rev: string): Promise<Response.IOk>;
         removeAttachment(docId: string, attachmentId: string, rev: string, callback: (err: IError, res: Response.IOk) => void): any;
 
-        query(fun: ((doc: any) => void) | string): ng.IPromise<any>;
+        query(fun: ((doc: any) => void) | string): Promise<any>;
         query(fun: ((doc: any) => void) | string, callback: (err: IError, res: any) => void): any;
-        query(fun: ((doc: any) => void) | string, options: Options.IQuery): ng.IPromise<any>;
+        query(fun: ((doc: any) => void) | string, options: Options.IQuery): Promise<any>;
         query(fun: ((doc: any) => void) | string, options: Options.IQuery, callback: (err: IError, res: any) => void): any;
 
-        viewCleanup(): ng.IPromise<Response.IViewCleanup>
+        viewCleanup(): Promise<Response.IViewCleanup>
         viewCleanup(callback: (err: IError, res: Response.IViewCleanup) => void): void
 
-        info(): ng.IPromise<Response.IInfo>;
+        info(): Promise<Response.IInfo>;
         info(callback: (err: IError, res: Response.IInfo) => void): void;
 
-        compact(): ng.IPromise<Response.ICompact>;
-        compact(options: Options.ICompact): ng.IPromise<Response.ICompact>;
+        compact(): Promise<Response.ICompact>;
+        compact(options: Options.ICompact): Promise<Response.ICompact>;
         compact(options: Options.ICompact, callback: (err: IError, res: Response.ICompact) => void): void;
         compact(callback: (err: IError, res: Response.ICompact) => void): void;
 
-        revsDiff(diff: Object): ng.IPromise<any>;
+        revsDiff(diff: Object): Promise<any>;
         revsDiff(diff: Object, callback: (err: IError, res: any) => void): void;
 
-        bulkGet(options: Options.IBulkGet): ng.IPromise<any>;
+        bulkGet(options: Options.IBulkGet): Promise<any>;
         bulkGet(options: Options.IBulkGet, callback: (err: IError, res: any) => void): any;
+
+        find(options: Options.IFind): Promise<Response.IFind>;
 
         on(
             /** Possible Events: "changed", "paused", "active", "denied", "complete", "error", "destroyed" */
@@ -452,6 +452,12 @@ declare module pouchDB {
             Most likely you won’t need this unless you’re writing a replicator.*/
             style?: string;
         }
+
+        export interface IFind {
+            selector: any,
+            fields?: string[],
+            sort: string[]
+        }
     }
 
     module Response {
@@ -497,6 +503,10 @@ declare module pouchDB {
             ok: boolean;
             id: string;
             rev: string;
+        }
+
+        interface IFind {
+            'docs': any[];
         }
 
     }
