@@ -1,13 +1,14 @@
+
+
 /**
  * Define a global PouchDB object
  */
-
-
 declare var PouchDB: pouchDB.IPouchDB;
 
 import pDB = pouchDB;
 import PouchRes = pouchDB.Response;
 import PouchOpt = pouchDB.Options;
+
 // Support AMD require
 declare module 'PouchDB' {
     export = pouchDB;
@@ -24,13 +25,21 @@ declare module pouchDB {
         destroy(options: any): Promise<any>;
         destroy(options: any, callback: (err: IError, any) => void): any;
 
+        /** Create a new document or update an existing document. If the document already exists,
+         *  you must specify its revision _rev, otherwise a conflict will occur.*/
         put<T extends IBaseDoc>(doc: T): Promise<Response.IOk>;
         put<T extends IBaseDoc>(doc: T, callback: (err: IError, res: Response.IOk) => void): any;
+        /** Deprecated: Put the _id and _rev on the document itself: */
         put<T extends IBaseDoc>(doc: T, docId: string): Promise<Response.IOk>;
+        /** Deprecated: Put the _id and _rev on the document itself: */
         put<T extends IBaseDoc>(doc: T, docId: string, callback: (err: IError, res: Response.IOk) => void): any;
+        /** Deprecated: Put the _id and _rev on the document itself: */
         put<T extends IBaseDoc>(doc: T, docId: string, docRev: string): Promise<Response.IOk>;
+        /** Deprecated: Put the _id and _rev on the document itself: */
         put<T extends IBaseDoc>(doc: T, docId: string, docRev: string, callback: (err: IError, res: Response.IOk) => void): any;
+        /** Deprecated: Put the _id and _rev on the document itself: */
         put<T extends IBaseDoc>(doc: T, docId: string, docRev: string, options: any): Promise<Response.IOk>;
+        /** Deprecated: Put the _id and _rev on the document itself: */
         put<T extends IBaseDoc>(doc: T, docId: string, docRev: string, options: any, callback: (err: IError, res: Response.IOk) => void): any;
 
         post<T extends IBasePostDoc>(doc: T): Promise<Response.IOk>;
@@ -38,11 +47,13 @@ declare module pouchDB {
         post<T extends IBasePostDoc>(doc: T, options: any): Promise<Response.IOk>;
         post<T extends IBasePostDoc>(doc: T, options: any, callback: (err: IError, res: Response.IOk) => void): any;
 
+        /**Retrieves a document, specified by docId. */
         get<T>(docId: string): Promise<T>;
         get<T>(docId: string, callback: (err: IError, res: T) => void): any;
         get<T>(docId: string, options: Options.IFetch): Promise<T>;
         get<T>(docId: string, options: Options.IFetch, callback: (err: IError, res: T) => void): any;
 
+        /**Delete a document */
         remove<T extends IBaseDoc>(doc: T): Promise<Response.IOk>;
         remove<T extends IBaseDoc>(doc: T, callback: (err: IError, res: Response.IOk) => void): any;
         remove<T extends IBaseDoc>(doc: T, options: any): Promise<Response.IOk>;
@@ -311,6 +322,8 @@ declare module pouchDB {
             storage?: string
             /** (WebSQL-only) Amount in MB to request for storage, which you will need 
             if you are storing >5MB in order to avoid storage limit errors on iOS/Safari.
+            Persistent views use a seperate database per view which will also request storage space
+            so keep in mind the upper storage limits when using persistent views on iOS.
             https://pouchdb.com/errors.html#not_enough_space */
             size?: number;
             /** SQLite Plugin: Where to store data on iOS, which may affect iTunes/iCloud backup,
@@ -522,7 +535,7 @@ declare module pouchDB {
     }
 
     interface IBasePostDoc {
-        _rev: string;
+        _rev?: string;
         _deleted?: boolean;
     }
 
